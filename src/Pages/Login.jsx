@@ -5,6 +5,23 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDeafult();
+  };
 
   return (
     <>
@@ -15,7 +32,7 @@ const Login = () => {
               <img src={loginIcon} alt="Login Icon" />
             </div>
 
-            <form action="" className="pt-5">
+            <form action="" className="pt-5" onSubmit={handleSubmit}>
               <div className="grid ">
                 <label htmlFor="Email" className="mx-2">
                   Email :
@@ -25,6 +42,9 @@ const Login = () => {
                     type="email"
                     placeholder="Enter E-mail"
                     className="w-full h-full outline-none bg-transparent"
+                    value={data.email}
+                    name="email"
+                    onChange={handleOnChange}
                   />
                 </div>
               </div>
@@ -37,6 +57,9 @@ const Login = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
                     className="w-full h-full outline-none bg-transparent"
+                    value={data.password}
+                    name="password"
+                    onChange={handleOnChange}
                   />
                   <div
                     className="cursor-pointer"
@@ -49,7 +72,7 @@ const Login = () => {
                   to={"/forgot-password"}
                   className="block w-fit ml-auto hover:underline hover:text-red-600"
                 >
-                  Forget Password
+                  Forget Password ?
                 </Link>
               </div>
               <button className="bg-red-600 text-white w-full px-5 py-2 max-w-[150px] rounded-full hover:scale-110  transition-all mx-auto block mt-4 hover:bg-red-500">
